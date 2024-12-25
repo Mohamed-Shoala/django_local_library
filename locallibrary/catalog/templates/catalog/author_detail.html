@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ author.first_name }} {{ author.last_name }}</h1>
+
+  <!-- Author Details -->
+  <p><strong>Date of Birth:</strong> {{ author.date_of_birth }}</p>
+  <p><strong>Date of Death:</strong> {{ author.date_of_death }}</p>
+
+  {% if author.date_of_death %}
+    <p><strong>Lifetime:</strong> {{ author.date_of_birth }} - {{ author.date_of_death }}</p>
+  {% else %}
+    <p><strong>Born:</strong> {{ author.date_of_birth }}</p>
+  {% endif %}
+
+  <!-- Related Books -->
+  <h2>Books by {{ author.first_name }} {{ author.last_name }}</h2>
+  <ul>
+    {% for book in books %}
+      <li>
+      <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> - {{ book.display_genre }}
+      </li>
+    {% empty %}
+      <li>No books available for this author.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
